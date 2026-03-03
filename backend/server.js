@@ -14,13 +14,12 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://personal-finance-tracker-tau-silk.vercel.app/",
-      "http://localhost:3000", // ✅ add this
-      "http://127.0.0.1:3000", // ✅ add this
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
       "http://localhost:5500",
       "http://127.0.0.1:5500",
-      "http://localhost:5501",
       "http://127.0.0.1:5501",
+      "https://personal-finance-tracker-tau-silk.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
