@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = "https://finance-tracker-guaj.onrender.com/api";
 
 // Auto-redirect if already logged in
 if (localStorage.getItem("token")) {
