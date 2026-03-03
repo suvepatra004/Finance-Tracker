@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTrack — Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="app-body">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span>💰</span>
+        <span class="logo-text">FinTrack</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item active">
+          <span class="nav-icon">📊</span><span>Dashboard</span>
+        </a>
+        <a href="transactions.html" class="nav-item">
+          <span class="nav-icon">📋</span><span>Transactions</span>
+        </a>
+        <a href="income.html" class="nav-item">
+          <span class="nav-icon">💵</span><span>Income</span>
+        </a>
+        <a href="budget.html" class="nav-item">
+          <span class="nav-icon">🎯</span><span>Budgets</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar">U</div>
+          <span id="userName">Loading...</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">⬅ Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <div>
+            <h2 id="greetingText">Good Morning 👋</h2>
+            <p id="currentMonth">March 2026</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <input
+            type="month"
+            id="monthPicker"
+            class="month-picker"
+            onchange="loadDashboard()"
+          />
+        </div>
+      </header>
+
+      <!-- Summary Cards -->
+      <section class="cards-grid">
+        <div class="card card-income">
+          <div class="card-icon">💵</div>
+          <div class="card-info">
+            <p class="card-label">Total Income</p>
+            <h3 class="card-value" id="totalIncome">₹0.00</h3>
+          </div>
+        </div>
+        <div class="card card-expense">
+          <div class="card-icon">💸</div>
+          <div class="card-info">
+            <p class="card-label">Total Expenses</p>
+            <h3 class="card-value" id="totalExpenses">₹0.00</h3>
+          </div>
+        </div>
+        <div class="card card-balance">
+          <div class="card-icon">🏦</div>
+          <div class="card-info">
+            <p class="card-label">Net Balance</p>
+            <h3 class="card-value" id="netBalance">₹0.00</h3>
+          </div>
+        </div>
+        <div class="card card-savings">
+          <div class="card-icon">📈</div>
+          <div class="card-info">
+            <p class="card-label">Savings Rate</p>
+            <h3 class="card-value" id="savingsRate">0%</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Two Column: Add Expense + Category Breakdown -->
+      <div class="two-col">
+        <!-- Add Expense Form -->
+        <section class="glass-card">
+          <h3 class="section-title">➕ Add Expense</h3>
+          <form id="addExpenseForm" onsubmit="addExpense(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Amount (₹)</label>
+                <input
+                  type="number"
+                  id="expAmount"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="expDate" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="expCategory" required>
+                <option value="">Select category</option>
+                <option value="Groceries">🛒 Groceries</option>
+                <option value="Food & Dining">🍔 Food & Dining</option>
+                <option value="Transportation">🚗 Transportation</option>
+                <option value="Utilities">💡 Utilities</option>
+                <option value="Entertainment">🎬 Entertainment</option>
+                <option value="Healthcare">🏥 Healthcare</option>
+                <option value="Clothing">👗 Clothing</option>
+                <option value="Education">📚 Education</option>
+                <option value="Rent">🏠 Rent</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Description (optional)</label>
+              <input
+                type="text"
+                id="expDesc"
+                placeholder="e.g. Weekly grocery run"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-danger btn-full"
+              id="addExpenseBtn"
+            >
+              Add Expense
+            </button>
+          </form>
+        </section>
+
+        <!-- Category Breakdown -->
+        <section class="glass-card">
+          <h3 class="section-title">📊 Category Breakdown</h3>
+          <div id="categorySummary" class="category-list">
+            <div class="empty-state">No expenses this month</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Budget Progress -->
+      <section class="glass-card full-width">
+        <div class="section-header">
+          <h3 class="section-title">🎯 Budget Progress</h3>
+          <button class="btn btn-sm btn-outline" onclick="openBudgetModal()">
+            + Set Budget
+          </button>
+        </div>
+        <div id="budgetProgress" class="budget-grid">
+          <div class="empty-state">No budgets set yet</div>
+        </div>
+      </section>
+
+      <!-- Recent Transactions -->
+      <section class="glass-card full-width">
+        <div class="section-header">
+          <h3 class="section-title">🕐 Recent Transactions</h3>
+          <a href="transactions.html" class="btn btn-sm btn-outline"
+            >View All</a
+          >
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recentTableBody">
+              <tr>
+                <td colspan="5" class="empty-state">No transactions yet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Budget Modal -->
+    <div id="budgetModal" class="modal hidden">
+      <div class="modal-content glass-card">
+        <div class="modal-header">
+          <h3>Set Monthly Budget</h3>
+          <button class="close-btn" onclick="closeBudgetModal()">✕</button>
+        </div>
+        <form onsubmit="saveBudget(event)">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="budgetCategory" required>
+              <option value="">Select category</option>
+              <option value="Groceries">Groceries</option>
+              <option value="Food & Dining">Food & Dining</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Education">Education</option>
+              <option value="Rent">Rent</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Monthly Limit (₹)</label>
+            <input
+              type="number"
+              id="budgetLimit"
+              placeholder="5000"
+              min="1"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            Save Budget
+          </button>
+        </form>
+      </div>
+    </div>
+    <div
+      id="modalOverlay"
+      class="modal-overlay hidden"
+      onclick="closeBudgetModal()"
+    ></div>
+
+    <script src="js/dashboard.js"></script>
+  </body>
+</html>

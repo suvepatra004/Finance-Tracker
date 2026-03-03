@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTrack — Transactions</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="app-body">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span>💰</span>
+        <span class="logo-text">FinTrack</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"
+          ><span class="nav-icon">📊</span><span>Dashboard</span></a
+        >
+        <a href="transactions.html" class="nav-item active"
+          ><span class="nav-icon">📋</span><span>Transactions</span></a
+        >
+        <a href="income.html" class="nav-item"
+          ><span class="nav-icon">💵</span><span>Income</span></a
+        >
+        <a href="budget.html" class="nav-item"
+          ><span class="nav-icon">🎯</span><span>Budgets</span></a
+        >
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar">U</div>
+          <span id="userName">Loading...</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">⬅ Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <div>
+            <h2>Transaction History</h2>
+            <p>All expenses and income sorted by date</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Filters -->
+      <section class="glass-card full-width">
+        <div class="filters-row">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search description / source..."
+            class="filter-input"
+            oninput="debounceSearch()"
+          />
+          <select
+            id="filterType"
+            class="filter-input"
+            onchange="applyFilters()"
+          >
+            <option value="">All Types</option>
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+          <select
+            id="filterCategory"
+            class="filter-input"
+            onchange="applyFilters()"
+          >
+            <option value="">All Categories</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Food & Dining">Food & Dining</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Education">Education</option>
+            <option value="Rent">Rent</option>
+            <option value="Other">Other</option>
+          </select>
+          <input
+            type="month"
+            id="filterMonth"
+            class="filter-input"
+            onchange="applyFilters()"
+          />
+          <button class="btn btn-outline" onclick="clearFilters()">
+            ✕ Clear
+          </button>
+        </div>
+      </section>
+
+      <!-- Transactions Table -->
+      <section class="glass-card full-width">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category / Source</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="txTableBody">
+              <tr>
+                <td colspan="7" class="empty-state">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+        <p class="pagination-info" id="paginationInfo"></p>
+      </section>
+    </main>
+
+    <script src="js/transaction.js"></script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTrack — Budgets</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="app-body">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span>💰</span>
+        <span class="logo-text">FinTrack</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"
+          ><span class="nav-icon">📊</span><span>Dashboard</span></a
+        >
+        <a href="transactions.html" class="nav-item"
+          ><span class="nav-icon">📋</span><span>Transactions</span></a
+        >
+        <a href="income.html" class="nav-item"
+          ><span class="nav-icon">💵</span><span>Income</span></a
+        >
+        <a href="budget.html" class="nav-item active"
+          ><span class="nav-icon">🎯</span><span>Budgets</span></a
+        >
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar">U</div>
+          <span id="userName">Loading...</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">⬅ Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <div>
+            <h2>Budgets</h2>
+            <p>Set and track monthly spending limits</p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <input
+            type="month"
+            id="budgetMonthPicker"
+            class="month-picker"
+            onchange="loadBudgets()"
+          />
+        </div>
+      </header>
+
+      <!-- Set Budget Form -->
+      <div class="two-col">
+        <section class="glass-card">
+          <h3 class="section-title">➕ Set Budget</h3>
+          <form id="setBudgetForm" onsubmit="saveBudget(event)">
+            <div class="form-group">
+              <label>Category</label>
+              <select id="budgetCategory" required>
+                <option value="">Select category</option>
+                <option value="Groceries">🛒 Groceries</option>
+                <option value="Food & Dining">🍔 Food & Dining</option>
+                <option value="Transportation">🚗 Transportation</option>
+                <option value="Utilities">💡 Utilities</option>
+                <option value="Entertainment">🎬 Entertainment</option>
+                <option value="Healthcare">🏥 Healthcare</option>
+                <option value="Clothing">👗 Clothing</option>
+                <option value="Education">📚 Education</option>
+                <option value="Rent">🏠 Rent</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Monthly Limit (₹)</label>
+              <input
+                type="number"
+                id="budgetLimit"
+                placeholder="e.g. 5000"
+                min="1"
+                required
+              />
+            </div>
+            <p
+              style="
+                font-size: 0.8rem;
+                color: var(--text-muted);
+                margin-bottom: 16px;
+              "
+            >
+              ℹ️ Setting a budget for an existing category will update it.
+            </p>
+            <button
+              type="submit"
+              class="btn btn-primary btn-full"
+              id="saveBudgetBtn"
+            >
+              Save Budget
+            </button>
+          </form>
+        </section>
+
+        <!-- Budget Tips -->
+        <section class="glass-card">
+          <h3 class="section-title">💡 Budget Tips</h3>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 14px;
+              color: var(--text-secondary);
+              font-size: 0.88rem;
+              line-height: 1.7;
+            "
+          >
+            <div>
+              🟢 <strong style="color: #6ee7b7">Under 70%</strong> — You're on
+              track. Keep it up!
+            </div>
+            <div>
+              🟡 <strong style="color: #fcd34d">70–90%</strong> — Getting close
+              to your limit. Slow down.
+            </div>
+            <div>
+              🔴 <strong style="color: #fca5a5">Above 90%</strong> — Almost at
+              limit or overspent!
+            </div>
+            <hr style="border-color: var(--border-glass)" />
+            <div>
+              Set budgets for each category you regularly spend on. The
+              dashboard will show live progress as you add expenses.
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Budget Progress List -->
+      <section class="glass-card full-width">
+        <div class="section-header">
+          <h3 class="section-title">🎯 Budget Progress</h3>
+          <span
+            id="budgetMonthLabel"
+            style="color: var(--text-muted); font-size: 0.85rem"
+          ></span>
+        </div>
+        <div id="budgetList" class="budget-grid">
+          <div class="empty-state">No budgets set for this month</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/budget.js"></script>
+  </body>
+</html>

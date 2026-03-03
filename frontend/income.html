@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTrack — Income</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body class="app-body">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span>💰</span>
+        <span class="logo-text">FinTrack</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-item"
+          ><span class="nav-icon">📊</span><span>Dashboard</span></a
+        >
+        <a href="transactions.html" class="nav-item"
+          ><span class="nav-icon">📋</span><span>Transactions</span></a
+        >
+        <a href="income.html" class="nav-item active"
+          ><span class="nav-icon">💵</span><span>Income</span></a
+        >
+        <a href="budget.html" class="nav-item"
+          ><span class="nav-icon">🎯</span><span>Budgets</span></a
+        >
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar">U</div>
+          <span id="userName">Loading...</span>
+        </div>
+        <button class="logout-btn" onclick="logout()">⬅ Logout</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">☰</button>
+          <div>
+            <h2>Income</h2>
+            <p>Manage your income sources</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Add Income Form -->
+      <div class="two-col">
+        <section class="glass-card">
+          <h3 class="section-title">➕ Add Income</h3>
+          <form id="addIncomeForm" onsubmit="addIncome(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Amount (₹)</label>
+                <input
+                  type="number"
+                  id="incAmount"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="1"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="incDate" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Source</label>
+              <select id="incSource" required>
+                <option value="">Select source</option>
+                <option value="Salary">💼 Salary</option>
+                <option value="Freelance">💻 Freelance</option>
+                <option value="Bonus">🎁 Bonus</option>
+                <option value="Investment">📈 Investment</option>
+                <option value="Business">🏢 Business</option>
+                <option value="Rental">🏠 Rental</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Frequency</label>
+              <select id="incFrequency">
+                <option value="monthly">Monthly</option>
+                <option value="weekly">Weekly</option>
+                <option value="one-time">One-time</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-full"
+              id="addIncomeBtn"
+            >
+              Add Income
+            </button>
+          </form>
+        </section>
+
+        <!-- Monthly Summary -->
+        <section class="glass-card">
+          <h3 class="section-title">📊 Source Breakdown</h3>
+          <div id="incomeBreakdown" class="category-list">
+            <div class="empty-state">No income this month</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Income History -->
+      <section class="glass-card full-width">
+        <div class="section-header">
+          <h3 class="section-title">📋 Income History</h3>
+          <input
+            type="month"
+            id="incomeMonth"
+            class="month-picker"
+            onchange="loadIncomePage(1)"
+          />
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Source</th>
+                <th>Frequency</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="incomeTableBody">
+              <tr>
+                <td colspan="6" class="empty-state">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="incomePagination"></div>
+        <p class="pagination-info" id="incomePaginationInfo"></p>
+      </section>
+    </main>
+
+    <script src="js/income.js"></script>
+  </body>
+</html>
