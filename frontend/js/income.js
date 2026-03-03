@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = "https://finance-tracker-guaj.onrender.com/api";
 
 const token = localStorage.getItem("token");
 if (!token) window.location.href = "index.html";

@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = "https://finance-tracker-guaj.onrender.com/api";
 
 // Auth guard
 const token = localStorage.getItem("token");
