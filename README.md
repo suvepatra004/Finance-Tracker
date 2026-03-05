@@ -1,4 +1,4 @@
-# 💰 FinTrack — Personal Finance Tracker
+# 💰 FinTrack - Personal Finance Tracker
 
 A full-stack personal finance management web application that helps users track expenses, manage income, set monthly budgets, and visualize spending patterns.
 
@@ -7,13 +7,13 @@ A full-stack personal finance management web application that helps users track 
 ## 📸 Screenshots
 
 > Login/Register
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 28 49 PM" src="https://github.com/user-attachments/assets/ab3fc429-f0c5-4534-803d-de5c807a972b" />
+<img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 28 49 PM" src="https://github.com/user-attachments/assets/ab3fc429-f0c5-4534-803d-de5c807a972b" />
 
 > Dashboard
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 29 55 PM" src="https://github.com/user-attachments/assets/16f28f5a-ef8c-4334-a332-236ab42efb94" />
+<img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 29 55 PM" src="https://github.com/user-attachments/assets/16f28f5a-ef8c-4334-a332-236ab42efb94" />
 
 > Income
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 22 PM" src="https://github.com/user-attachments/assets/f6612a0b-9a2d-4e8a-953e-8d6a97cd6677" />
+<img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 22 PM" src="https://github.com/user-attachments/assets/f6612a0b-9a2d-4e8a-953e-8d6a97cd6677" />
 
 > Budgets
 <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 56 PM" src="https://github.com/user-attachments/assets/684813e6-9edb-4af1-8f1f-59e151dafe9d" />
