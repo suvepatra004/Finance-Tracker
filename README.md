@@ -260,9 +260,6 @@ The backend is hosted on Render's free tier which spins down after 15 minutes of
 ## ☠️ Developed By
 
 <div align="center">
-### Suvendu Kumar Patra
-
-🎓 Passionate Full-Stack Developer | Building real-world projects one commit at a time
 
 [![GitHub](https://img.shields.io/badge/GitHub-suvepatra004-181717?style=for-the-badge&logo=github)](https://github.com/suvepatra004)
 
@@ -271,7 +268,7 @@ _"Code is not just syntax — it's a solution to a real problem."_
 </div>
 <div align="center">
 
-Made with ❤️ by **Suvendu Kumar Patra**
+Made with ❤️ by **Me**
 
 ⭐ If you found this project helpful, consider giving it a star on GitHub!
 
