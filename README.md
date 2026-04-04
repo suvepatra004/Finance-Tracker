@@ -1,10 +1,25 @@
-# 💰 FinTrack — Personal Finance Tracker
+# FinTrack — Personal Finance Tracker
 
 A full-stack personal finance management web application that helps users track expenses, manage income, set monthly budgets, and visualize spending patterns.
 
-**Live Demo:** [https://personal-finance-tracker-tau-silk.vercel.app](https://personal-finance-tracker-tau-silk.vercel.app)
+**Live Demo:** [personal-finance-tracker-tau-silk.vercel.app](https://personal-finance-tracker-tau-silk.vercel.app)
 
-## 📸 Screenshots
+### Tech Stack
+
+<p>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" />
+</p>
+
+## Screenshots
 
 > Login/Register
 > <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 28 49 PM" src="https://github.com/user-attachments/assets/ab3fc429-f0c5-4534-803d-de5c807a972b" />
@@ -21,16 +36,16 @@ A full-stack personal finance management web application that helps users track 
 > Transactions
 > <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 31 24 PM" src="https://github.com/user-attachments/assets/32cc0d81-9722-467a-be23-2e41771f5fa8" />
 
-## 🚀 Features
+## Features
 
-### 🔐 Authentication
+#### Authentication
 
 - Secure user registration and login
 - JWT-based authentication
 - Protected routes — all pages require login
 - Auto logout on token expiry
 
-### 📊 Dashboard
+#### Dashboard
 
 - Monthly summary cards — Total Income, Total Expenses, Net Balance, Savings Rate
 - Add expense form with category, amount, date and description
@@ -39,7 +54,7 @@ A full-stack personal finance management web application that helps users track 
 - Recent transactions (latest 5, both income and expenses)
 - Month picker to view any past month's data
 
-### 💵 Income Management
+#### Income Management
 
 - Add income with source, amount, frequency and date
 - Supported sources: Salary, Freelance, Bonus, Investment, Business, Rental, Other
@@ -47,7 +62,7 @@ A full-stack personal finance management web application that helps users track 
 - Income source breakdown with visual bars
 - Paginated income history with delete option
 
-### 🎯 Budget Setting & Tracking
+#### Budget Setting & Tracking
 
 - Set monthly spending limits per category
 - Real-time progress bars showing actual vs budgeted spend
@@ -58,7 +73,7 @@ A full-stack personal finance management web application that helps users track 
 - Budget visible on both Dashboard and dedicated Budgets page
 - Delete budget option
 
-### 📋 Transaction History
+#### Transaction History
 
 - Combined view of all expenses and income sorted by date
 - Filter by Type (Expense / Income)
@@ -68,9 +83,9 @@ A full-stack personal finance management web application that helps users track 
 - Paginated results (10 per page)
 - Delete individual transactions
 
-## 🛠 Tech Stack
+## Tech Stack
 
-### Frontend
+#### Frontend
 
 | Technology         | Usage               |
 | ------------------ | ------------------- |
@@ -79,7 +94,7 @@ A full-stack personal finance management web application that helps users track 
 | Vanilla JavaScript | Logic and API calls |
 | Vercel             | Hosting             |
 
-### Backend
+#### Backend
 
 | Technology | Usage                 |
 | ---------- | --------------------- |
@@ -90,16 +105,14 @@ A full-stack personal finance management web application that helps users track 
 | CORS       | Cross-origin handling |
 | Render     | Hosting               |
 
-### Database
+#### Database
 
 | Technology | Usage                  |
 | ---------- | ---------------------- |
 | PostgreSQL | Relational database    |
 | Supabase   | Cloud database hosting |
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 Finance-Tracker/
@@ -138,9 +151,9 @@ Finance-Tracker/
         └── budgetRoutes.js
 ```
 
-## ⚙️ Local Setup
+## Local Setup
 
-### Prerequisites
+#### Prerequisites
 
 - Node.js v18+
 - Supabase account (free at [supabase.com](https://supabase.com))
@@ -192,16 +205,16 @@ Backend runs at: `http://localhost:5000`
 
 Open `frontend/index.html` using **Live Server** (VS Code extension) or any static file server.
 
-## 🔌 API Endpoints
+## API Endpoints
 
-### Auth
+#### Auth
 
 | Method | Endpoint             | Description           |
 | :----- | :------------------- | :-------------------- |
 | POST   | `/api/auth/register` | Register new user     |
 | POST   | `/api/auth/login`    | Login and receive JWT |
 
-### Expenses
+#### Expenses
 
 | Method | Endpoint                | Description                          |
 | :----- | :---------------------- | :----------------------------------- |
@@ -210,7 +223,7 @@ Open `frontend/index.html` using **Live Server** (VS Code extension) or any stat
 | DELETE | `/api/expenses/:id`     | Delete expense                       |
 | GET    | `/api/expenses/summary` | Monthly total + category breakdown   |
 
-### Income
+#### Income
 
 | Method | Endpoint              | Description                      |
 | :----- | :-------------------- | :------------------------------- |
@@ -219,7 +232,7 @@ Open `frontend/index.html` using **Live Server** (VS Code extension) or any stat
 | DELETE | `/api/income/:id`     | Delete income                    |
 | GET    | `/api/income/summary` | Monthly total + source breakdown |
 
-### Budgets
+#### Budgets
 
 | Method | Endpoint           | Description             |
 | :----- | :----------------- | :---------------------- |
@@ -229,7 +242,7 @@ Open `frontend/index.html` using **Live Server** (VS Code extension) or any stat
 
 > All endpoints except `/api/auth/*` require `Authorization: Bearer <token>` header.
 
-## 🌐 Deployment
+## Deployment
 
 | Layer    | Platform | URL                                                                                                          |
 | :------- | :------- | :----------------------------------------------------------------------------------------------------------- |
@@ -237,44 +250,32 @@ Open `frontend/index.html` using **Live Server** (VS Code extension) or any stat
 | Backend  | Render   | [https://finance-tracker-guaj.onrender.com](https://finance-tracker-guaj.onrender.com)                       |
 | Database | Supabase | PostgreSQL Cloud                                                                                             |
 
----
+### Note on Render Free Tier
 
-### ⚠️ Note on Render Free Tier
+The backend is hosted on Render's free tier which spins down after 15 minutes of inactivity. The first request after an idle period may take 30–50 seconds to respond. This is expected behavior subsequent requests are fast.
 
-The backend is hosted on Render's free tier which spins down after 15 minutes of inactivity. The first request after an idle period may take 30–50 seconds to respond. This is expected behavior — subsequent requests are fast.
-
----
-
-## 🔒 Security
+### Security
 
 - Passwords are hashed using **bcryptjs** before storing
 - Authentication uses **JWT tokens** with expiry
 - All API routes (except auth) are protected by middleware
 - CORS is configured to allow only trusted origins
 
----
+### Developed By
 
-## ☠️ Developed By
+<div align="">
 
-<div align="center">
+#### Suvendu Kumar Patra
 
-### Suvendu Kumar Patra
-
-🎓 Passionate Full-Stack Developer | Building real-world projects one commit at a time
-
-[
+Full-Stack Developer | Building real-world projects one commit at a time
 
 _"Code is not just syntax — it's a solution to a real problem."_
 
 </div>
 <div align="center">
-
-Made with ❤️ by **Suvendu Kumar Patra**
-
 ⭐ If you found this project helpful, consider giving it a star on GitHub!
-
 </div>
 
-## 📄 License
+#### License
 
 This project is built for educational and portfolio purposes. Feel free to fork and build upon it.
