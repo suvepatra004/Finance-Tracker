@@ -4,15 +4,14 @@ import pool from "../config/db.js";
 export const addIncome = async (req, res) => {
   const { amount, source, frequency, date } = req.body;
 
-  if (!amount || !source || !date) {
+  if (!amount || !source || !date)
     return res
       .status(400)
       .json({ message: "Amount, source and date are required" });
-  }
 
   try {
     await pool.query(
-      "INSERT INTO income (user_id, amount, source, frequency, date) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO income (user_id, amount, source, frequency, date) VALUES ($1, $2, $3, $4, $5)",
       [req.user.id, amount, source, frequency || "monthly", date],
     );
     res.status(201).json({ message: "Income added" });
@@ -25,13 +24,13 @@ export const addIncome = async (req, res) => {
 // Delete income
 export const deleteIncome = async (req, res) => {
   try {
-    const [result] = await pool.query(
-      "DELETE FROM income WHERE id = ? AND user_id = ?",
+    const result = await pool.query(
+      "DELETE FROM income WHERE id = $1 AND user_id = $2",
       [req.params.id, req.user.id],
     );
-    if (result.affectedRows === 0) {
+    if (result.rowCount === 0)
       return res.status(404).json({ message: "Income not found" });
-    }
+
     res.json({ message: "Income deleted" });
   } catch (err) {
     console.error("Delete income error:", err);
@@ -45,14 +44,15 @@ export const getIncome = async (req, res) => {
   const offset = (page - 1) * limit;
 
   try {
-    const [rows] = await pool.query(
-      "SELECT * FROM income WHERE user_id = ? ORDER BY date DESC LIMIT ? OFFSET ?",
+    const { rows } = await pool.query(
+      "SELECT * FROM income WHERE user_id = $1 ORDER BY date DESC LIMIT $2 OFFSET $3",
       [req.user.id, Number(limit), Number(offset)],
     );
-    const [[{ total }]] = await pool.query(
-      "SELECT COUNT(*) as total FROM income WHERE user_id = ?",
+    const { rows: countRows } = await pool.query(
+      "SELECT COUNT(*) as total FROM income WHERE user_id = $1",
       [req.user.id],
     );
+    const total = parseInt(countRows[0].total);
 
     res.json({
       data: rows,
@@ -70,28 +70,26 @@ export const getIncome = async (req, res) => {
 export const getIncomeSummary = async (req, res) => {
   const { month } = req.query;
 
-  if (!month) {
+  if (!month)
     return res.status(400).json({ message: "Month is required (YYYY-MM)" });
-  }
 
   try {
-    const [[{ monthlyTotal }]] = await pool.query(
-      `SELECT COALESCE(SUM(amount), 0) as monthlyTotal
+    const { rows: totalRows } = await pool.query(
+      `SELECT COALESCE(SUM(amount), 0) as monthlytotal
        FROM income
-       WHERE user_id = ? AND DATE_FORMAT(date, '%Y-%m') = ?`,
+       WHERE user_id = $1 AND TO_CHAR(date, 'YYYY-MM') = $2`,
       [req.user.id, month],
     );
 
-    const [breakdown] = await pool.query(
+    const { rows: breakdown } = await pool.query(
       `SELECT source, SUM(amount) as total
        FROM income
-       WHERE user_id = ? AND DATE_FORMAT(date, '%Y-%m') = ?
-       GROUP BY source
-       ORDER BY total DESC`,
+       WHERE user_id = $1 AND TO_CHAR(date, 'YYYY-MM') = $2
+       GROUP BY source ORDER BY total DESC`,
       [req.user.id, month],
     );
 
-    res.json({ month, monthlyTotal, breakdown });
+    res.json({ month, monthlyTotal: totalRows[0].monthlytotal, breakdown });
   } catch (err) {
     console.error("Income summary error:", err);
     res.status(500).json({ message: "Server error" });

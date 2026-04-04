@@ -1,24 +1,22 @@
 // backend/setup.js
+import pg from "pg";
 import dotenv from "dotenv";
-import mysql from "mysql2/promise";
-
 dotenv.config();
 
+const { Client } = pg;
+
 async function setupDatabase() {
-  const connection = await mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    port: process.env.MYSQLPORT,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE,
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false },
   });
 
-  console.log("✅ Connected to Railway MySQL...");
+  await client.connect();
+  console.log("✅ Connected to Supabase PostgreSQL...");
 
   const queries = [
     `CREATE TABLE IF NOT EXISTS users (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
       email VARCHAR(150) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
@@ -26,7 +24,7 @@ async function setupDatabase() {
     )`,
 
     `CREATE TABLE IF NOT EXISTS expenses (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       amount DECIMAL(10,2) NOT NULL,
       category VARCHAR(100) NOT NULL,
@@ -37,33 +35,34 @@ async function setupDatabase() {
     )`,
 
     `CREATE TABLE IF NOT EXISTS income (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       amount DECIMAL(10,2) NOT NULL,
       source VARCHAR(100) NOT NULL,
-      frequency ENUM('one-time','weekly','monthly') DEFAULT 'monthly',
+      frequency VARCHAR(20) DEFAULT 'monthly',
       date DATE NOT NULL,
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )`,
 
     `CREATE TABLE IF NOT EXISTS budgets (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       user_id INT NOT NULL,
       category VARCHAR(100) NOT NULL,
       monthly_limit DECIMAL(10,2) NOT NULL,
       month VARCHAR(7) NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      UNIQUE (user_id, category, month)
     )`,
   ];
 
   for (const query of queries) {
-    await connection.execute(query);
-    const tableName = query.match(/CREATE TABLE IF NOT EXISTS (\w+)/)[1];
-    console.log(`✅ Table "${tableName}" created or already exists`);
+    await client.query(query);
+    const match = query.match(/CREATE TABLE IF NOT EXISTS (\w+)/);
+    console.log(`✅ Table "${match[1]}" created or already exists`);
   }
 
   console.log("\n🎉 Database setup complete! All 4 tables are ready.");
-  await connection.end();
+  await client.end();
   process.exit(0);
 }
 

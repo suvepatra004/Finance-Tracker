@@ -7,20 +7,19 @@ A full-stack personal finance management web application that helps users track 
 ## 📸 Screenshots
 
 > Login/Register
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 28 49 PM" src="https://github.com/user-attachments/assets/ab3fc429-f0c5-4534-803d-de5c807a972b" />
+> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 28 49 PM" src="https://github.com/user-attachments/assets/ab3fc429-f0c5-4534-803d-de5c807a972b" />
 
 > Dashboard
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 29 55 PM" src="https://github.com/user-attachments/assets/16f28f5a-ef8c-4334-a332-236ab42efb94" />
+> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 29 55 PM" src="https://github.com/user-attachments/assets/16f28f5a-ef8c-4334-a332-236ab42efb94" />
 
 > Income
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 22 PM" src="https://github.com/user-attachments/assets/f6612a0b-9a2d-4e8a-953e-8d6a97cd6677" />
+> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 22 PM" src="https://github.com/user-attachments/assets/f6612a0b-9a2d-4e8a-953e-8d6a97cd6677" />
 
 > Budgets
-<img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 56 PM" src="https://github.com/user-attachments/assets/684813e6-9edb-4af1-8f1f-59e151dafe9d" />
+> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 30 56 PM" src="https://github.com/user-attachments/assets/684813e6-9edb-4af1-8f1f-59e151dafe9d" />
 
-Transactions
-> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 31 24 PM" src="https://github.com/user-attachments/assets/32cc0d81-9722-467a-be23-2e41771f5fa8" />
-
+> Transactions
+> <img width="1080" height="680" alt="Screenshot 2026-03-03 at 4 31 24 PM" src="https://github.com/user-attachments/assets/32cc0d81-9722-467a-be23-2e41771f5fa8" />
 
 ## 🚀 Features
 
@@ -95,48 +94,48 @@ Transactions
 
 | Technology | Usage                  |
 | ---------- | ---------------------- |
-| MySQL      | Relational database    |
-| Railway    | Cloud database hosting |
+| PostgreSQL | Relational database    |
+| Supabase   | Cloud database hosting |
 
 ---
 
-```
 ## 📁 Project Structure
 
+```
 Finance-Tracker/
 ├── frontend/
-│ ├── index.html \# Login / Register page
-│ ├── dashboard.html \# Main dashboard
-│ ├── transactions.html \# Transaction history
-│ ├── income.html \# Income management
-│ ├── budget.html \# Budget management
-│ ├── css/
-│ │ ├── style.css \# Global styles
-│ │ ├── auth.css \# Auth page styles
-│ │ └── dashboard.css \# App layout styles
-│ └── js/
-│ ├── auth.js \# Login/register logic
-│ ├── dashboard.js \# Dashboard logic
-│ ├── transaction.js \# Transactions logic
-│ ├── income.js \# Income logic
-│ └── budget.js \# Budget logic
+│   ├── index.html          # Login / Register page
+│   ├── dashboard.html      # Main dashboard
+│   ├── transactions.html   # Transaction history
+│   ├── income.html         # Income management
+│   ├── budget.html         # Budget management
+│   ├── css/
+│   │   ├── style.css       # Global styles
+│   │   ├── auth.css        # Auth page styles
+│   │   └── dashboard.css   # App layout styles
+│   └── js/
+│       ├── auth.js         # Login/register logic
+│       ├── dashboard.js    # Dashboard logic
+│       ├── transaction.js  # Transactions logic
+│       ├── income.js       # Income logic
+│       └── budget.js       # Budget logic
 │
 └── backend/
-├── server.js \# Express app entry point
-├── config/
-│ └── db.js \# MySQL connection pool
-├── middleware/
-│ └── authMiddleware.js \# JWT verification
-├── controllers/
-│ ├── authController.js
-│ ├── expenseController.js
-│ ├── incomeController.js
-│ └── budgetController.js
-└── routes/
-├── authRoutes.js
-├── expenseRoutes.js
-├── incomeRoutes.js
-└── budgetRoutes.js
+    ├── server.js           # Express app entry point
+    ├── config/
+    │   └── db.js           # PostgreSQL connection pool
+    ├── middleware/
+    │   └── authMiddleware.js  # JWT verification
+    ├── controllers/
+    │   ├── authController.js
+    │   ├── expenseController.js
+    │   ├── incomeController.js
+    │   └── budgetController.js
+    └── routes/
+        ├── authRoutes.js
+        ├── expenseRoutes.js
+        ├── incomeRoutes.js
+        └── budgetRoutes.js
 ```
 
 ## ⚙️ Local Setup
@@ -144,7 +143,7 @@ Finance-Tracker/
 ### Prerequisites
 
 - Node.js v18+
-- MySQL (local or cloud)
+- Supabase account (free at [supabase.com](https://supabase.com))
 - Git
 
 ### 1. Clone the repository
@@ -166,14 +165,12 @@ npm install
 Create a `.env` file inside the `backend/` folder:
 
 ```env
-MYSQLHOST=your_mysql_host
-MYSQLUSER=your_mysql_user
-MYSQLPASSWORD=your_mysql_password
-MYSQLDATABASE=your_database_name
-MYSQLPORT=3306
+DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.xxxxxxxx.supabase.co:5432/postgres
 JWT_SECRET=your_jwt_secret_key
 PORT=5000
 ```
+
+> Get your `DATABASE_URL` from Supabase → Project Settings → Database → Connection string.
 
 ### 4. Set up the database
 
@@ -181,7 +178,7 @@ PORT=5000
 node setup.js
 ```
 
-This will create all required tables automatically.
+This will create all required tables automatically in your Supabase database.
 
 ### 5. Start the backend server
 
@@ -234,11 +231,11 @@ Open `frontend/index.html` using **Live Server** (VS Code extension) or any stat
 
 ## 🌐 Deployment
 
-| Layer    | Platform | URL                                                  |
-| :------- | :------- | :--------------------------------------------------- |
-| Frontend | Vercel   | https://personal-finance-tracker-tau-silk.vercel.app |
-| Backend  | Render   | https://finance-tracker-guaj.onrender.com            |
-| Database | Railway  | MySQL Cloud                                          |
+| Layer    | Platform | URL                                                                                                          |
+| :------- | :------- | :----------------------------------------------------------------------------------------------------------- |
+| Frontend | Vercel   | [https://personal-finance-tracker-tau-silk.vercel.app](https://personal-finance-tracker-tau-silk.vercel.app) |
+| Backend  | Render   | [https://finance-tracker-guaj.onrender.com](https://finance-tracker-guaj.onrender.com)                       |
+| Database | Supabase | PostgreSQL Cloud                                                                                             |
 
 ---
 
@@ -260,11 +257,12 @@ The backend is hosted on Render's free tier which spins down after 15 minutes of
 ## ☠️ Developed By
 
 <div align="center">
+
 ### Suvendu Kumar Patra
 
 🎓 Passionate Full-Stack Developer | Building real-world projects one commit at a time
 
-[![GitHub](https://img.shields.io/badge/GitHub-suvepatra004-181717?style=for-the-badge&logo=github)](https://github.com/suvepatra004)
+[
 
 _"Code is not just syntax — it's a solution to a real problem."_
 
